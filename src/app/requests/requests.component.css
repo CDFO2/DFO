@@ -1,0 +1,16 @@
+.cartDetails{
+    text-transform:uppercase;
+    font-size: 0.8em; 
+    color:gray;
+}
+.catalogueDate{
+    font-size: 0.8em;
+}
+.requestIcon{
+    padding-top: 0px;
+    font-size: 1.5em;
+}
+.requestTitle{
+    font-size: 1em;
+    /*font-weight: 700;*/
+}

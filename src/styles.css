@@ -1,0 +1,187 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~font-awesome/css/font-awesome.css";
+@import "./assets/custom.css";
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+html, body {
+    height: 100%;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+h2{font-size: 1.4em;}
+
+.cgiRed{background-color:#E61739 !important;}
+.cgiDarkRed{background-color:#991F39 !important;}
+.cgiOrange{background-color:#FF6A00 !important;}
+.cgiYellow{background-color:#F2A200 !important;}
+.cgiLBlue{background-color:#A1C4D0 !important;}
+.cgiGray{background-color:#A5ACB0 !important;}
+
+.cgiRedTxt{color:#E61739 !important;}
+.cgiDarkRedTxt{color:#991F39 !important;}
+.cgiOrangeTxt{color:#FF6A00 !important;}
+.cgiYellowTxt{color:#F2A200 !important;}
+.cgiLBlueTxt{color:#A1C4D0 !important;}
+.cgiGrayTxt{color:#A5ACB0 !important;}
+
+.bgRed {background-color: red !important;}
+.bgGreen {background-color: green !important;}
+
+
+.nopadding {
+    padding: 0 !important;
+    /*margin: 0 !important;*/
+ }
+.pageHeading{
+    text-transform:uppercase;
+    font-size: 0.8em; 
+    margin:0px;
+    color:gray;
+}
+.error { 
+    color: red; 
+}
+.btn-right{
+    float: right;
+    margin-left: 20px;
+}
+.formLable{
+    text-transform:uppercase;
+    font-size: 0.8em; 
+    margin:0px;
+    color:gray;
+}
+.columnTitle{
+    text-transform:uppercase;
+    font-size: 0.8em; 
+    color:gray;
+    padding: 10px 0px 0px 20px;
+}
+.vcenter {
+    display: flex;
+    align-items: center;
+}
+.serviceHeading{
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.headerIconCercle{
+    font-size: 1.3em;
+    color:gray;
+    cursor: pointer;
+}
+
+.headerIcons {
+    margin-left: 20px;
+    color:gray;
+    font-size: 1.3em;
+ }
+ .headerIconCercle:hover{
+     color: #000;
+ }
+ .icon-background {
+     color: #e9e9e9;
+ }
+
+
+ .catalogueTitle{
+    font-size: 1em;
+    font-weight: 700;
+}
+.catalogueDescription{
+    font-size: 0.9em;
+}
+.catalogueIcon{
+    padding-top: 0px;
+    font-size: 1.5em;
+}
+.catalogFormDisplay{
+    /*border-left:1px solid #e7eaec;
+    padding-left: 20px;*/
+    background-color: #f5f5f5;
+    min-height: 100%;
+}
+.colBorderRight{
+    border-right:1px solid #e7eaec;
+}
+.catalogueRow{
+    cursor: pointer;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    color: gray;
+    border-bottom: 1px solid #e7eaec;
+}
+.catalogueRow:hover{
+    color:black;
+}
+.catalogueSelected{
+    color:black;
+}
+.label {
+    background-color: #d1dade;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    text-shadow: none;
+    border-radius: 3px;
+    /*min-width: 70px;*/
+    text-align: center;
+    display: inline-block;
+    white-space: nowrap;
+    width: 100%;
+}
+.buttonPadding{
+    margin-bottom: 15px;
+}
+
+.mat-form-field{
+    font-size: inherit;
+    font-weight: 400;
+    line-height: 1;
+    font-family: inherit;
+}
+.mat-dialog-title {
+    margin: 0 0 10px !important;
+    display: block;
+}
+.mat-dialog-title {
+    font-family: inherit !important;
+}
+
+button.dfo-primary {
+    background: #a5acb0;
+    border-radius: 4px;
+    color: #fff !important;
+    font-size: 0.9em;
+    border: none;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.bootstrap-select, .btn.focus, .btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.paddingMessage{
+    margin: 0px 20px 20px 20px;
+}
+
+
+/****** MOBILE STYLES ******/
+@media only screen and (max-width: 450px){
+    .catalogFormDisplay{
+        border-top:1px solid #e7eaec;
+        margin-top:20px;
+    }
+}

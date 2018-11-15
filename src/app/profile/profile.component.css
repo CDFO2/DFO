@@ -1,0 +1,27 @@
+.user {
+    display: inline-block;
+    width: 6em;
+    height: 6em;
+    line-height: 6em;
+    vertical-align: middle;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    cursor: pointer;
+}
+.profileText{
+    font-size: 0.9em;
+    color: gray;
+}
+.buttonPadding{
+    margin-top:20px;
+}
+.input-group-text {
+    font-size: 1em;
+}
+.notes{
+    font-size: 0.8em;
+    font-style: italic;
+    color: gray;
+}

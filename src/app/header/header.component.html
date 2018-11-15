@@ -1,0 +1,28 @@
+<div class="container-flex" id="headerRow">
+  <div class="row headerRow">
+    <div class="col-4 col-md-1">
+      <img src="../../assets/images/logo.png" routerLink="welcome" class="img-fluid cgiLogo" title="CGI">
+    </div>
+    <div class="col-1 col-md-7 col-lg-9 appHeading">
+      <!--Digital Front Office-->
+    </div>
+    <div class="col-6 col-md-4 col-lg-2 text-right">
+      <span class="fa-stack headerIconCercle" routerLink="cart" title="Cart">
+        <i class="fa fa-circle fa-stack-2x icon-background"></i>
+        <i class="fa fa-shopping-cart fa-stack-1x"></i>
+        <!--<span class="cartCount">{{myCartCount}}</span>*ngIf="cartCount > 0"-->
+        <span class='cartCount' *ngIf="nCount > 0" [class.disabled]="nCount == 0" data-toggle="modal" data-target="#exampleModal">{{nCount}}</span>      </span>
+      <span class="fa-stack headerIconCercle" routerLink="notifications" title="Notifications">
+        <i class="fa fa-circle fa-stack-2x icon-background"></i>
+        <i class="fa fa-bell fa-stack-1x"></i>
+      </span>
+      <span class="fa-stack user" routerLink="profile" [style.background-image]="'url('+profilePic+')'"></span>
+      <!--
+      <span class="fa-stack headerIconCercle" title="Profile">
+       <i class="fa fa-circle fa-stack-2x icon-background"></i>
+        <i class="fa fa-user fa-stack-1x"></i>
+      </span>
+      -->
+    </div>
+  </div>
+</div>

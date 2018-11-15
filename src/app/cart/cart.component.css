@@ -1,0 +1,16 @@
+.cartDetails{
+    text-transform:uppercase;
+    font-size: 0.8em; 
+    color:gray;
+}
+.checkout{
+    margin-top:20px;
+}
+.cartIcon{
+    padding-top: 0px;
+    font-size: 1.5em;
+}
+.cartTitle{
+    font-size: 1em;
+    /*font-weight: 700;*/
+}

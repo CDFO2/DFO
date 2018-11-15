@@ -1,0 +1,83 @@
+.leftNav{
+    position: relative;
+    /*background-color: #f2f2f2;*/
+    /*box-shadow: 4px 6px 5px rgba(0, 0, 0, 0.2);*/
+    /*padding:15px 0px 0px 0px;*/
+    z-index: 999;
+}
+.leftNavIcon{
+    text-align: left;
+    font-size: 1em;
+    color: gray;
+    cursor: pointer;
+}
+.leftNavIcon:hover{
+    color: #000;
+}
+.activeRoute{
+    color: #000;
+    font-weight: 600;
+}
+.menuIcons{
+    font-size: 1.3em;
+    margin-top:5px;
+}
+.categotyCount{
+    padding:0px 10px;
+    background-color: #991F39;
+    border-radius: 3px;
+    color:white;
+    text-align: center;
+    font-size: 0.9em;
+}
+.subMenuItem{
+    font-size: 0.9em;
+    cursor: pointer;
+}
+.leftNavIcon i{
+    padding: 5px 5px;
+    text-align: center;
+}
+.lineHeight{
+    line-height:40px;
+}
+.center-block {
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
+ }
+ .text-center {
+    text-align:center
+ }
+ .numberCircle {
+    border-radius: 50%;
+    width: 20px;
+    padding: 0px 5px 1px 5px;
+    background: #991F39;
+    color: #fff;
+    text-align: center;
+    font-size: 0.8em;
+  }
+.cartCount {
+    border-radius: 50%;
+    font-size: 0.8em;
+    background: #A1C4D0;
+    color: #000;
+    padding: 0 5px;
+    vertical-align: top;
+    z-index: 9999;
+    position: relative;
+}
+
+
+@media only screen and (min-width: 800px){
+    .contFill { 
+        min-height: calc(100% - 50px);
+        height: calc(100% - 50px);
+    }
+    .fill { 
+        min-height: 100%;
+        height: 100%;
+    }
+}
+

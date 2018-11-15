@@ -1,0 +1,57 @@
+<div class="row">
+
+    <div class="col-12 col-md-6 col-lg-5 nopadding colBorderRight" [style.height.px]="formDivHeight">
+        <p class="columnTitle">My Profile</p>
+        <div class="row">
+            <div class="col-3">
+                <div class="user" routerLink="profile" [style.background-image]="'url('+profilePic+')'"></div>
+            </div>
+            <div class="col-9 profileText">
+                <b>Full Name</b> <br>
+                Email <br>
+                Phone Number <br>
+                Base Office <br>
+                Office Address <br>
+            </div>
+            <div class="col-12">
+                <button type="button" class="btn dfo-primary pull-right buttonPadding" (click)="onModify()">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    Modify
+                </button>        
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-7 catalogFormDisplay containerPadding" [style.height.px]="formDivHeight" *ngIf="modify">
+        <p class="formLable">Modify My Profile</p>
+        <p class="serviceHeading"></p>
+        <div class="row">
+            <div class="col-12 nopadding profileText">
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="profileImageLabel">
+                            <i class="fa fa-upload mr-2" aria-hidden="true"></i>
+                            Profile Image
+                        </span>
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="profileImage" aria-describedby="profileImageLabel">
+                        <label class="custom-file-label" for="profileImage">Choose file</label>
+                    </div>
+                </div>                        
+
+            </div>
+            <div class="col-8 nopadding notes buttonPadding">
+                <b>Note: </b>Only certain fields will be permitted to modify in this interface, for others please request through HR Service Center.
+            </div>
+            <div class="col-4 nopadding">
+                <button type="button" class="btn dfo-primary pull-right buttonPadding" (click)="onModify()">
+                    <i class="fa fa-save" aria-hidden="true"></i>
+                    Save
+                </button>        
+            </div>
+        </div>
+    </div>
+
+</div>

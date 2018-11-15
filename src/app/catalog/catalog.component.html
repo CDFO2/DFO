@@ -1,0 +1,203 @@
+<div class="row">
+    <!-- CATALOG STARTS -->
+    <div class="col-12 col-md-6 col-lg-5 nopadding colBorderRight" [style.height.px]="formDivHeight">
+      <p class="columnTitle">{{categoryName | uppercase}} CATALOGUES</p>
+      <div class="row" *ngFor="let catalogue of catalogues">
+          <div class="col-12 nopadding" (click)="getCatalogueForm(catalogue.id,catalogue.name,catalogue.description,catalogue.fields,catalogue.profile.icon)" skipLocationChange=true>
+            <div class="row catalogueRow" [ngClass]="{'catalogueSelected': catID === catalogue.id }">
+              <div class="col-1 vcenter">
+                  <i title="{{catalogue.name}}" class="fa fa-{{catalogue.profile.icon}} catalogueIcon"></i>
+                </div>
+                <div class="col-11">
+                  <div class="catalogueTitle">{{catalogue.name}}</div>
+                  <div class="catalogueDescription">{{catalogue.description}}</div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+    <!-- CATALOG ENDS -->
+
+    <!-- DISPLAY FORM STARTS -->
+    <div class="col-12 col-md-6 col-lg-7 catalogFormDisplay containerPadding" [style.height.px]="formDivHeight" *ngIf="catalogueDescription">
+        <p class="formLable">SERVICE</p>
+        <p class="serviceHeading">{{catalogueDescription}}</p>
+        <div class="alert alert-success" *ngIf="successMessage">
+            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+            {{successMessage}}
+        </div>    
+            
+          <form novalidate *ngIf="dataObject && !successMessage" [formGroup]="form"><!--(ngSubmit)="onSubmit(form.value)"-->
+            <div class="row">
+            <div class="form-group col-12 col-lg-6 nopadding specialPadding" *ngFor="let prop of objectProps">
+              <label *ngIf="prop.type != 'button'" [attr.for]="prop" class="formLable">
+                {{prop.label}}
+                <span *ngIf="form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched)">
+                  <span class="error" *ngIf="form.get(prop.key).errors.required">
+                     - Required!
+                  </span>
+                  <span class="error" *ngIf="form.get(prop.key).errors.pattern">
+                     - Invalid Data!
+                  </span>
+                 </span>
+              </label>
+      
+              <div [ngSwitch]="prop.type">
+                <input *ngSwitchCase="'text'" 
+                  [formControlName]="prop.key" 
+                  [id]="prop.key" [type]="prop.type" 
+                  [placeholder]="prop.placeHolder" 
+                  [ngClass]="{'invalid-text': form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
+                  >
+      
+                <input *ngSwitchCase="'email'"  
+                  [formControlName]="prop.key" 
+                  [id]="prop.key" [type]="prop.type" 
+                  [placeholder]="prop.placeHolder" 
+                  [pattern]="emailPattern"
+                  [ngClass]="{'invalid-text': !form.get(prop.key).email && form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
+                  >
+
+                <input *ngSwitchCase="'phone'"
+                    [formControlName]="prop.key" 
+                    [id]="prop.key" type="text" maxlength="10" 
+                    [placeholder]="prop.placeHolder" 
+                    [pattern]="phonePattern"
+                    [ngClass]="{'invalid-text': form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
+                    >
+
+                <div *ngSwitchCase="'date'">
+                  
+                  <input *ngSwitchCase="'date'"
+                    [formControlName]="prop.key" 
+                    [id]="prop.key" [type]="prop.type" 
+                    [placeholder]="prop.placeHolder" 
+                    [ngClass]="{'invalid-text': form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
+                    >
+                  
+                  <!--
+                  <mat-form-field floatLabel="never">
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" required disabled>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error>
+                        {{errors}}
+                    </mat-error>
+                  </mat-form-field>
+                  -->
+                </div>
+                  
+                <div *ngSwitchCase="'select'">
+
+                  <!-- Special Select Field -->
+                  <ng-container *ngIf="prop.special">
+                    <!-- Parent Select Field -->
+                    <ng-container *ngIf="prop.special.selecttype == 'parent'"><!--[(ngModel)]="selected.id"-->
+                      <select class="form-control"
+                        (change)="onParentSelect($event.target.value,prop.childoptions)"
+                        [formControlName]="prop.key"
+                        [ngClass]="{'invalid-text': form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
+                        >
+                        <option value="" selected>(choose one)</option>
+                        <ng-container *ngFor="let option of prop.options">
+                          <option [value]="option.value" *ngIf="option.value!=''">{{option.label}}</option>
+                        </ng-container>
+                      </select>
+                    </ng-container>
+
+                    <!-- Child Parent Select Field -->
+                    <ng-container *ngIf="prop.special.selecttype == 'parentchild'"><!--[(ngModel)]="selected.id"-->
+                      <select class="form-control"
+                        (change)="onChildSelect($event.target.value,prop.childoptions)"
+                        [formControlName]="prop.key"
+                        [ngClass]="{'invalid-text': form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
+                        >
+                        <option value="" selected>(choose one)</option>
+                        <ng-container *ngIf="childOptions1">
+                          <ng-container *ngFor="let option of childOptions1">
+                            <option [value]="option.value" *ngIf="option.value!=''">{{option.label}}</option>
+                          </ng-container>    
+                        </ng-container>
+                        </select>
+                    </ng-container>
+
+                    <!-- Child Select Field -->
+                    <ng-container *ngIf="prop.special.selecttype == 'child'">
+                      <select class="form-control"
+                        [formControlName]="prop.key"
+                        [ngClass]="{'invalid-text': form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
+                        >
+                        <option value="" selected>(choose one)--</option>
+                        <ng-container *ngIf="childOptions2">
+                          <ng-container *ngFor="let option of childOptions2">
+                            <option [value]="option.value" *ngIf="option.value!=''">{{option.label}}</option>
+                          </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="!childOptions2 && childOptions1">
+                            <ng-container *ngFor="let option of childOptions1">
+                              <option [value]="option.value" *ngIf="option.value!=''">?? - {{option.label}}</option>
+                            </ng-container>
+                          </ng-container>
+                        </select>
+                    </ng-container>
+
+                  </ng-container>
+
+                  <!-- Normal Select Field -->
+                  <ng-container *ngIf="!prop.special">
+                    <select class="form-control"
+                      [formControlName]="prop.key"
+                      [ngClass]="{'invalid-text': form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
+                      >
+                      <option value="" selected>(choose one)</option>
+                      <ng-container *ngFor="let option of prop.options">
+                        <option [value]="option.value" *ngIf="option.value!=''">{{option.label}}</option>
+                      </ng-container>                              
+                    </select>
+                  </ng-container>
+
+                </div>
+
+                <div *ngSwitchCase="'radio'">
+                    <label class="radioContainer" *ngFor="let option of prop.options">
+                      {{option.label}} 
+                      <input
+                        type="radio"
+                        [name]="prop.key"
+                        [formControlName]="prop.key"
+                        [value]="option.value"> 
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="row">
+              <div class="col-12 nopadding form-group buttonDiv">
+                <!--
+                <div *ngFor="let prop of objectProps">
+                  <div *ngIf="prop.type=='button'">
+                      <button type="button" (click)="onSubmit(form.value)" class="btn btn-secondary btn-right"  
+                        [disabled]="!form.valid">
+                          <i title="Add to Cart" class="fa fa-shopping-cart"></i> 
+                          {{ prop.label }}
+                      </button>
+                  </div>
+                </div>
+                -->
+                <button type="button" (click)="onSubmit(form.value)" class="btn dfo-primary btn-right"  
+                  [disabled]="!form.valid">
+                    <i title="Add to Cart" class="fa fa-shopping-cart"></i> 
+                    Add to Cart
+                </button>
+                <button type="button" class="btn dfo-primary btn-right" (click)="resetForm(catalogueName)"><!--this.form.reset()-->
+                    <i title="Add to Cart" class="fa fa-eraser"></i> 
+                    Reset Form
+                </button>
+
+              </div>
+            </div>
+        </form>      
+    </div>
+    <!-- DISPLAY FORM ENDS -->
+  </div>

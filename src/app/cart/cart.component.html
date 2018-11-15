@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-12 col-md-6 nopadding colBorderRight" [style.height.px]="formDivHeight">
+        <p class="columnTitle">Shopping Cart</p>
+        <p></p>
+        <div class="alert alert-success paddingMessage" *ngIf="successMessage">
+            {{successMessage}}
+        </div>
+        <div class="alert alert-danger paddingMessage" *ngIf="(myCart | json) == '[]';else cartDisplay">
+            <!--<a class="close" (click)="hideAlert()" data-dismiss="alert" aria-label="close">&times;</a>alert-dismissible-->
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            Your cart is empty.
+        </div>
+        <ng-template #cartDisplay>
+            <div class="row" *ngFor="let item of myCart">
+            <div class="col-12 nopadding">
+                <div class="row catalogueRow" [ngClass]="{'catalogueSelected': catID === item.id }">
+                    <div class="col-2 col-md-2 col-lg-1 vcenter" (click)="showCartDetails(item,item.catalogueDescription)" skipLocationChange=true>
+                        <i title="{{item.catalogueName}}" class="fa fa-{{item.icon}} cartIcon align-middle"></i>
+                    </div>
+                    <div class="col-7 col-md-7 col-lg-9 cartTitle vcenter" (click)="showCartDetails(item,item.catalogueDescription)" skipLocationChange=true>
+                        {{item.catalogueName}}
+                        <!--<div class="catalogueDescription">{{item.catalogueDescription}}</div>-->
+                    </div>
+                    <div class="col-3 col-md-3 col-lg-2">
+                        <span class="fa-stack headerIconCercle" (click)="removeFromMyCart(item,item.catalogueName)" title="Delete">
+                            <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                            <i class="fa fa-trash fa-stack-1x"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn dfo-primary" (click)="checkout()">
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    Checkout
+                </button>
+            </div>
+        </div>
+    </ng-template>
+    </div>
+    <div class="col-12 col-md-6 catalogFormDisplay containerPadding" [style.height.px]="formDivHeight" *ngIf="cartObject">
+        <p class="formLable">CART ITEM</p>
+        <p class="serviceHeading">{{catalogueDescription}}</p>
+        <div class="row">
+            <div class="col-12 nopadding cartDetails">
+                <table class="table">
+                    <tr *ngFor="let item of cartKeys">
+                        <ng-container *ngIf="item != 'catalogueName' && item != 'catalogueDescription' && item != 'button' && item != 'id' && item != 'icon'">
+                            <td>{{item | uppercase}}</td><!-- class="font-weight-bold"-->
+                            <td>{{cartObject[item]}}</td>                                    
+                        </ng-container>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    <div class="container-flex">
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <th>S.No</th>
+                        <th>Item</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of myCart; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{item.catalogueName}}</td>
+                            <td>
+                                <span class="fa-stack headerIconCercle" (click)="removeFromMyCart(item)" title="Delete">
+                                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                                    <i class="fa fa-trash fa-stack-1x"></i>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    -->

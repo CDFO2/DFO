@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-12 col-md-6 nopadding colBorderRight" [style.height.px]="formDivHeight">
+        <p class="columnTitle">My Requests</p>
+        <p></p>
+        <div class="alert alert-danger" *ngIf="(myRequests | json) == '[]';else requestDisplay">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            You have not raised any requests yet.
+        </div>
+
+        <ng-template #requestDisplay>
+            <div class="row" *ngFor="let item of myRequests; let idx = index">
+                <div class="col-12 nopadding" (click)="showReqDetails(item,item.id,item.catalogueDescription)" skipLocationChange=true>
+                    <div class="row catalogueRow" [ngClass]="{'catalogueSelected': catID === item.id }">
+                        <div class="col-2 col-md-2 col-lg-1 vcenter">
+                            <i title="{{item.catalogueName}}" class="fa fa-{{item.icon}} requestIcon"></i><!---->
+                        </div>
+                        <div class="col-10 col-md-5 col-lg-6 requestTitle vcenter">
+                            {{item.catalogueName}}
+                            <!--<div class="catalogueDescription">{{item.catalogueDescription}}</div>-->
+                        </div>
+                        <div class="col-6 offset-2 col-md-5 offset-md-0 col-lg-3 offset-lg-0 catalogueDate">
+                            {{item.submittedDate | date:'dd-MMM-yyyy hh:mm:ss'}}
+                        </div>
+                        <div class="col-4 col-md-4 offset-md-7 col-lg-2 offset-lg-0">
+                            <div class="label nowrap cgiGray" *ngIf="idx % 4 == 0">In Progress</div>
+                            <div class="label cgiYellow" *ngIf="idx % 4 == 1">Pending</div>
+                            <div class="label bgGreen" *ngIf="idx % 4 == 2">Closed</div>
+                            <div class="label bgRed" *ngIf="idx % 4 == 3">Cancelled</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+    <div class="col-12 col-md-6 catalogFormDisplay containerPadding" [style.height.px]="formDivHeight" *ngIf="cartObject">
+        <p class="formLable">REQUEST ITEM</p>
+        <p class="serviceHeading">{{catalogueDescription}}</p>
+        <div class="row">
+                <div class="col-12 nopadding cartDetails">
+                    <table class="table">
+                        <tr *ngFor="let item of cartKeys">
+                            <ng-container *ngIf="item != 'catalogueName' && item != 'catalogueDescription' && item != 'submit' && item != 'id' && item != 'icon'">
+                                <td>{{item | uppercase}}</td><!-- class="font-weight-bold"-->
+                                <td>{{cartObject[item]}}</td>                                    
+                            </ng-container>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+                
+
+        <!-- $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        <div class="container-flex">
+            <div class="row">
+                <div class="col-12">
+                    <table class="table">
+                        <thead>
+                            <th>S.No</th>
+                            <th>Item</th>
+                            <th>Submitted Date</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of myRequests; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{item.catalogueName}}</td>
+                                <td>{{item.submittedDate | date:'dd-MMM-yyyy hh:mm:ss'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        -->

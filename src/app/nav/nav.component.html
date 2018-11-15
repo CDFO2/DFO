@@ -1,0 +1,109 @@
+<aside id="left-panel">
+    <nav>
+      <ul>
+        <li class="leftMinimizeArrows" id="minifyButton">
+          <div id="left" style="display: block;">
+            <span class="minifyme" data-action="minifyMenu">
+              <i class="fa fa-caret-left" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div id="right" style="display: none;">
+            <span class="minifyme" data-action="minifyMenu">
+              <i class="fa fa-caret-right" aria-hidden="true"></i>
+            </span>
+          </div>
+        </li>
+        <li>
+          <a [ngClass]="{'activeRoute': isActive('/dashboard')}" (click)="minimizeAll()" routerLink="dashboard" title="Dashboard">
+            <i class="fa fa-lg fa-fw fa-line-chart  menuIcons"></i>
+            <span class="menu-item-parent">Analytics</span>
+          </a>
+        </li>
+        <li>
+          <a [ngClass]="{'activeRoute': isActive('/requests')}" (click)="minimizeAll()" routerLink="requests" title="Requests">
+            <i class="fa fa-lg fa-fw fa-ticket  menuIcons"></i>
+            <span class="menu-item-parent">Requests</span>
+          </a>
+        </li>
+        <li>
+          <a [ngClass]="{'activeRoute': isActive('/catalogue')}" tabindex (click)="getCategory()" title="Catalogue">
+            <i class="fa fa-lg fa-fw fa-shopping-cart  menuIcons"></i>
+            <span class="menu-item-parent">Catalogue</span>
+          </a>
+          <ul>
+            <li *ngFor="let category of categories">
+              <!--<i class="fa fa-lg fa-fw fa-shopping-cart  menuIcons"></i>-->
+              <a [routerLink]="['/catalogue',category.category | lowercase]" (click)="minimizeAll()" [ngClass]="{'activeRoute': isActive('/catalogue/'+category.category | lowercase)}" title="{{category.category | titlecase}}">
+                {{category.category | titlecase}}
+                <span class="badge pull-right">{{category.count}}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!--
+        <li>
+          <a [ngClass]="{'activeRoute': isActive('/reports')}" (click)="minimizeAll()" routerLink="reports" title="Reports">
+            <i class="fa fa-lg fa-fw fa-bar-chart  menuIcons"></i>
+            <span class="menu-item-parent">Reports</span>
+          </a>
+        </li>
+        -->
+        <li>
+          <a [ngClass]="{'activeRoute': isActive('/manage')}" (click)="minimizeAll()" routerLink="manage" title="Manage">
+            <i class="fa fa-lg fa-fw fa-shield  menuIcons"></i>
+            <span class="menu-item-parent">Manage</span>
+          </a>
+        </li>
+        </ul>
+    </nav>
+  </aside>
+
+
+<div id="main">
+    <div class="row">
+      <div class="col-12 nopadding">
+        <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+      
+<!--
+<div class="container-flex contFill">
+  <div class="row navRow fill">
+    <div class="col-12 col-md-2 leftNav fill">
+        <div class="row leftNavIcon" [ngClass]="{'activeRoute': isActive('/dashboard')}" routerLink="dashboard" title="Dashboard">
+          <div class="col-1 col-md-3 col-lg-2 text-center"><i class="fa fa-dashboard  menuIcons"></i></div>
+          <div class="col-10 col-md-9 col-lg-10 lineHeight">Dashboard</div>
+        </div>
+        <div class="row leftNavIcon" [ngClass]="{'activeRoute': isActive('/requests')}" routerLink="requests" title="My Requests">
+          <div class="col-1 col-md-3 col-lg-2 text-center"><i class="fa fa-ticket menuIcons"></i></div>
+          <div class="col-10 col-md-9 col-lg-10 lineHeight">Requests</div>
+        </div>
+        <div class="row leftNavIcon" [ngClass]="{'activeRoute': isActive('/catalogue/')}" (click)="getCategory()">
+          <div class="col-1 col-md-3 col-lg-2 text-center" title="Catalogue"><i class="fa fa-shopping-cart menuIcons"></i></div>
+          <div class="col-10 col-md-9 col-lg-10 lineHeight" title="Catalogue">Catalogue</div>
+          <div class="col-12 nopadding">
+          <div class="row subMenuItem" *ngFor="let category of categories" title="{{category.category | titlecase}} Catalogue">
+            <div class="col-1 col-md-3 col-lg-2"></div>
+            <div class="col-9 col-md-5 col-lg-7" [routerLink]="['/catalogue',category.category | lowercase]" [ngClass]="{'activeRoute': isActive('/catalogue/'+category.category | lowercase)}">{{category.category | titlecase}}</div>
+            <div class="col-1 col-md-4 col-lg-3" [routerLink]="['/catalogue',category.category | lowercase]" [ngClass]="{'activeRoute': isActive('/catalogue/'+category.category | lowercase)}"><span class="cartCount">{{category.count}}</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="row leftNavIcon" [ngClass]="{'activeRoute': isActive('/reports')}" routerLink="reports" title="Reports">
+          <div class="col-1 col-md-3 col-lg-2 text-center"><i class="fa fa-bar-chart menuIcons"></i></div>
+          <div class="col-10 col-md-9 col-lg-10 lineHeight">Reports</div>
+        </div>
+        <div class="row leftNavIcon" [ngClass]="{'activeRoute': isActive('/manage')}" routerLink="manage" title="Manage">
+          <div class="col-1 col-md-3 col-lg-2 text-center"><i class="fa fa-shield menuIcons"></i></div>
+          <div class="col-10 col-md-9 col-lg-10 lineHeight">Manage</div>
+        </div>
+    </div>
+    <div class="col-12 col-md-10">
+        <div class="mainContent">
+            <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
+-->

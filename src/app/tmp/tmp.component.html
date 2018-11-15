@@ -1,0 +1,15 @@
+<div class="containerPadding">
+  <label>Country:</label> 
+  <select [(ngModel)]="selectedCountry.id" (change)="onSelect($event.target.value)">
+    <option value="0">--Select--</option>
+    <option *ngFor="let a of area" value= {{a.id}}>{{a.value}}</option>
+  </select>
+  <br/><br/>
+  <div>
+  <label>State:</label>
+  <select>
+    <option *ngIf='selectedCountry.id == 0' value="0">--Select--</option>
+    <option *ngFor="let n of nodal" value= {{n.id}}>{{n.name}}</option>
+  </select>
+  </div>  
+</div>
