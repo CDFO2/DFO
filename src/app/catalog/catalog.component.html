@@ -135,7 +135,7 @@
                         </ng-container>
                         <ng-container *ngIf="!childOptions2 && childOptions1">
                             <ng-container *ngFor="let option of childOptions1">
-                              <option [value]="option.value" *ngIf="option.value!=''">?? - {{option.label}}</option>
+                              <option [value]="option.value" *ngIf="option.value!=''">{{option.label}}</option>
                             </ng-container>
                           </ng-container>
                         </select>
