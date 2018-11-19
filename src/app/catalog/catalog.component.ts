@@ -119,6 +119,7 @@ export class CatalogComponent implements OnInit {
   }
 
   //Method to submit the form and Add to Cart
+  //Method to submit the form and Add to Cart
   onSubmit(form) {
     let tempObj = {
       "id" : this.catID,
