@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Inject, Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
+import { DOCUMENT } from '@angular/common'; 
 import { CatalogueService } from './catalog.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router} from '@angular/router';
@@ -36,11 +37,6 @@ export class CatalogComponent implements OnInit {
   shuttleRoute : object;
   shuttleArea : object;
   catalogues: object;
-  firstSubCatalogues: object;
-  secondSubCatalogues: object;
-  thirdSubCatalogues: object;
-  childOptions1 : Array<object>;
-  childOptions2 : Array<object>;
 
   //Regx Patterns for Validations
   emailPattern : string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"; 
@@ -48,12 +44,16 @@ export class CatalogComponent implements OnInit {
 
   constructor(
     private http : Http, 
+    private elRef :ElementRef,
+    private dialog : MatDialog,
     private cart : CartService,
-    private dialog: MatDialog,
+    @Inject(DOCUMENT) document,
+    private renderer : Renderer2,
     private route : ActivatedRoute, 
     private catalogueService : CatalogueService){
       if (window.screen.width > 450)
-        this.formDivHeight = window.innerHeight-50;}
+        this.formDivHeight = window.innerHeight-50;      
+    }
 
   //Initialize
   ngOnInit() {
@@ -132,26 +132,45 @@ export class CatalogComponent implements OnInit {
   }
 
   //Method to fetch Child Options on Parent Dropdown change
-  onParentSelect(childId,childoptions) {
-    this.childOptions1 = [];
-    for(let option in childoptions){
-      if (childoptions[option].parentid == childId){
-        this.childOptions1.push(childoptions[option]);  
+  onParentSelect(childId,childOptions,childField,resetFields) {
+
+    resetFields.split(/\s*,\s*/).forEach(function(field) {
+      for (let i = 0; i < childOptions.length; i++) {
+        (document.getElementById(field) as HTMLSelectElement).options.remove(i);
+      }
+      let tmpOption = new Option('(choose one)','');
+      (document.getElementById(field) as HTMLSelectElement).options.add(tmpOption);
+    });
+
+    for(let option in childOptions){
+      if (childOptions[option].parentid == childId){
+        //this.childOptions1.push(childOptions[option]);  
+        let tmpOption = new Option(childOptions[option].label,childOptions[option].value);
+        (document.getElementById(childField) as HTMLSelectElement).options.add(tmpOption);
       }
     } 
-    //console.log(this.childOptions);
   }
 
   //Method to fetch Child Options on Parent Dropdown change
-  onChildSelect(childId,childoptions) {
-    this.childOptions2 = [];
-    for(let option in childoptions){
-      if (childoptions[option].parentid == childId){
-        this.childOptions2.push(childoptions[option]);  
+  onChildSelect(childId,childOptions,childField) {
+    for (let i = 0; i < childOptions.length; i++) {
+      (document.getElementById(childField) as HTMLSelectElement).options.remove(i);
+    }
+    let tmpOption = new Option('(choose one)','');
+    (document.getElementById(childField) as HTMLSelectElement).options.add(tmpOption);
+    for(let option in childOptions){
+      if (childOptions[option].parentid == childId){
+        //this.childOptions2.push(childOptions[option]);  
+        let tmpOption = new Option(childOptions[option].label,childOptions[option].value);
+        (document.getElementById(childField) as HTMLSelectElement).options.add(tmpOption);
       }
-    } 
-    //console.log(this.childOptions2);
+    }
+    //console.log('childField: '+childField);
   }
+
+  getElem(elem){
+   console.log('ELEM: '+elem+' = '+(document.getElementById(elem) as HTMLSelectElement).selectedIndex);
+  }  
 
   /* ************* TO BE USED ***************
   public post(data: string): Observable<any> {

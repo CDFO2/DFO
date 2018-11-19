@@ -94,7 +94,7 @@
                     <!-- Parent Select Field -->
                     <ng-container *ngIf="prop.special.selecttype == 'parent'"><!--[(ngModel)]="selected.id"-->
                       <select class="form-control"
-                        (change)="onParentSelect($event.target.value,prop.childoptions)"
+                        (change)="onParentSelect($event.target.value,prop.childoptions,prop.special.childfield,prop.special.resetfields)"
                         [formControlName]="prop.key"
                         [ngClass]="{'invalid-text': form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
                         >
@@ -106,39 +106,57 @@
                     </ng-container>
 
                     <!-- Child Parent Select Field -->
-                    <ng-container *ngIf="prop.special.selecttype == 'parentchild'"><!--[(ngModel)]="selected.id"-->
-                      <select class="form-control"
-                        (change)="onChildSelect($event.target.value,prop.childoptions)"
+                    <ng-container *ngIf="prop.special.selecttype == 'child' && prop.childoptions"><!--[(ngModel)]="selected.id"-->
+                      <select class="form-control" id="{{prop.key}}"
+                        (change)="onChildSelect($event.target.value,prop.childoptions,prop.special.childfield)"
                         [formControlName]="prop.key"
                         [ngClass]="{'invalid-text': form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
                         >
                         <option value="" selected>(choose one)</option>
+                        <!--
                         <ng-container *ngIf="childOptions1">
                           <ng-container *ngFor="let option of childOptions1">
                             <option [value]="option.value" *ngIf="option.value!=''">{{option.label}}</option>
                           </ng-container>    
                         </ng-container>
+                        -->
                         </select>
                     </ng-container>
 
-                    <!-- Child Select Field -->
-                    <ng-container *ngIf="prop.special.selecttype == 'child'">
-                      <select class="form-control"
+
+                    <ng-container *ngIf="prop.special.selecttype == 'child' && !prop.childoptions"><!--[(ngModel)]="selected.id"-->
+                      <select class="form-control" id="{{prop.key}}"
                         [formControlName]="prop.key"
                         [ngClass]="{'invalid-text': form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
                         >
-                        <option value="" selected>(choose one)--</option>
+                        <option value="" selected>(choose one)</option>
+                      </select>
+                    </ng-container>
+
+
+
+                    <!-- Child Select Field -->
+                    <ng-container *ngIf="prop.special.selecttype == 'childXXXX'">
+                      <select class="form-control"
+                        [formControlName]="prop.key" id = {{prop.key}}
+                        [ngClass]="{'invalid-text': form.get(prop.key).invalid && (form.get(prop.key).dirty || form.get(prop.key).touched) }"
+                        >
+                        <option value="" selected>(choose one)</option>
+                        <!-- CHAIN WITH THREE DROPDOWN 
                         <ng-container *ngIf="childOptions2">
                           <ng-container *ngFor="let option of childOptions2">
-                            <option [value]="option.value" *ngIf="option.value!=''">{{option.label}}</option>
+                            <option [value]="option.value" *ngIf="option.value!=''">** {{option.label}}</option>
                           </ng-container>
                         </ng-container>
-                        <ng-container *ngIf="!childOptions2 && childOptions1">
-                            <ng-container *ngFor="let option of childOptions1">
-                              <option [value]="option.value" *ngIf="option.value!=''">{{option.label}}</option>
-                            </ng-container>
+                        -->
+                        <!-- CHAIN WITH TWO DROPDOWN 
+                        <ng-container *ngIf="!childOptions2">
+                          <ng-container *ngFor="let option of childOptions1">
+                            <option [value]="option.value" *ngIf="option.value!=''">?? {{option.label}}</option>
                           </ng-container>
-                        </select>
+                        </ng-container>
+                        -->
+                      </select>
                     </ng-container>
 
                   </ng-container>
